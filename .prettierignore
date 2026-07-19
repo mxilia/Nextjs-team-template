@@ -1,0 +1,14 @@
+# Dependency folders
+node_modules/
+
+# Build outputs
+build/
+dist/
+coverage/
+out/
+
+# Lockfiles and system files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.DS_Store
