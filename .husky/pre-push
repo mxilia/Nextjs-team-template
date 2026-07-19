@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Running type check..."
+npm run type-check
+
+echo "Checking Prettier format..."
+npx prettier --check .
