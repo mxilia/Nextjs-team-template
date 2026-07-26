@@ -1,16 +1,19 @@
 import { createClient } from '@/lib/supabase/server'
 import { CreateProfile, Profile, UpdateProfile } from '@/types/db'
-import { Paginated, Result, toPaginated, toResult } from '@/utils/supabase-helper'
+import { Result, toResult } from '@/utils/supabase-helper'
 
 const table = 'profiles' as const
 
 export const profileSupabase = {
-  getAll: async (page: number, limit: number): Promise<Result<Paginated<Profile>>> => {
+  getAll: async (
+    page: number,
+    limit: number,
+  ): Promise<Result<{ rows: Profile[]; total: number | null }>> => {
     const supabase = await createClient()
     const from = (page - 1) * limit
     const to = from + limit - 1
     const { data, error, count } = await supabase.from(table).select('*').range(from, to)
-    return toResult(toPaginated(data ?? [], count ?? 0, page, limit), error)
+    return toResult({ rows: data ?? [], total: count }, error)
   },
   getByUsername: async (username: string): Promise<Result<Profile>> => {
     const supabase = await createClient()

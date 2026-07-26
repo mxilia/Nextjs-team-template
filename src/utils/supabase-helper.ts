@@ -34,30 +34,3 @@ export function toResult<T>(data: T | null, error: PostgrestError | null): Resul
     data,
   }
 }
-
-export type Paginated<T> = {
-  data: T[]
-  pagination: {
-    total: number
-    page: number
-    limit: number
-    totalPages: number
-  }
-}
-
-export const toPaginated = <T>(
-  data: T[],
-  total: number,
-  page: number,
-  limit: number,
-): Paginated<T> => {
-  return {
-    data: data,
-    pagination: {
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    },
-  }
-}

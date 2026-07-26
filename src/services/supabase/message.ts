@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { CreateMessage, Message } from '@/types/db'
-import { Paginated, Result, toPaginated, toResult } from '@/utils/supabase-helper'
+import { Result, toResult } from '@/utils/supabase-helper'
 
 const table = 'messages' as const
 
@@ -9,7 +9,7 @@ export const messageSupabase = {
     roomId: string,
     page: number,
     limit: number,
-  ): Promise<Result<Paginated<Message>>> => {
+  ): Promise<Result<{ rows: Message[]; total: number | null }>> => {
     const supabase = await createClient()
     const from = (page - 1) * limit
     const to = from + limit - 1
@@ -19,7 +19,7 @@ export const messageSupabase = {
       .eq('room_id', roomId)
       .order('created_at', { ascending: false })
       .range(from, to)
-    return toResult(toPaginated(data ?? [], count ?? 0, limit, page), error)
+    return toResult({ rows: data ?? [], total: count }, error)
   },
   create: async (message: CreateMessage): Promise<Result<Message>> => {
     const supabase = await createClient()
