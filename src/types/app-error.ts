@@ -1,0 +1,34 @@
+export enum AppErrorCode {
+  // Generic
+  UNKNOWN = 'UNKNOWN',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+
+  // Request
+  INVALID_BODY = 'INVALID_BODY',
+  INVALID_QUERY = 'INVALID_QUERY',
+  INVALID_PARAMS = 'INVALID_PARAMS',
+
+  // Authentication
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+
+  // Resource
+  NOT_FOUND = 'NOT_FOUND',
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  CONFLICT = 'CONFLICT',
+
+  // Validation
+  VALIDATION_ERROR = 'VALIDATION_ERROR',
+
+  // Rate limiting
+  RATE_LIMITED = 'RATE_LIMITED',
+
+  // Feature flags
+  FEATURE_DISABLED = 'FEATURE_DISABLED',
+
+  // Database
+  DATABASE_ERROR = 'DATABASE_ERROR',
+
+  // External services
+  EXTERNAL_SERVICE_ERROR = 'EXTERNAL_SERVICE_ERROR',
+}
