@@ -20,6 +20,17 @@ export const profileSupabase = {
     return [{ rows: data ?? [], total: count ?? 0 }, error]
   },
 
+  getById: async (id: string): Promise<Result<Profile>> => {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.from(table).select('*').eq('id', id).single()
+    if (error) {
+      return [null, error]
+    }
+
+    return [data, null]
+  },
+
   getByUsername: async (username: string): Promise<Result<Profile>> => {
     const supabase = await createClient()
 

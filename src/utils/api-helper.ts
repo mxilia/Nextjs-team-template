@@ -2,7 +2,7 @@ import { ApiFailure, ApiPaginatedSuccess, ApiSuccess, PaginationMeta } from '@/t
 import { AppErrorCode } from '@/types/app-error'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { getAuthenticatedUser } from '@/lib/auth'
+import { getAuthenticatedUser } from '@/lib/auth/server'
 
 export async function protect() {
   const user = await getAuthenticatedUser()
