@@ -5,7 +5,7 @@ import { failure, success } from '@/utils/api-helper'
 export async function DELETE(params: Promise<{ id: string }>) {
   const { id } = await params
 
-  const [_, error] = await messageSupabase.delete(id)
+  const [, error] = await messageSupabase.delete(id)
   if (error) {
     if (error.code === 'PGRST116') {
       return failure(404, AppErrorCode.NOT_FOUND, 'message not found')
