@@ -1,7 +1,12 @@
 #!/bin/sh
 
+echo "Running lint..."
+npm run lint
+
 echo "Running type check..."
 npm run type-check
 
 echo "Checking Prettier format..."
-npx prettier --check .
+npx prettier --check . --ignore-path .gitignore
+
+echo "Pre-push checks passed ✅"
