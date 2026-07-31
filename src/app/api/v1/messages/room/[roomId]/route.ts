@@ -1,3 +1,4 @@
+import { createMessageSchema } from '@/schemas/message'
 import { messageSupabase } from '@/services/supabase/postgres/message'
 import { roomSupabase } from '@/services/supabase/postgres/room'
 import { messageRealtime } from '@/services/supabase/realtime/message'
@@ -5,7 +6,6 @@ import { AppErrorCode } from '@/types/app-error'
 import { Message } from '@/types/db'
 import { failure, parseBody, success, successPaginated, toPaginationMeta } from '@/utils/api-helper'
 import { NextRequest } from 'next/server'
-import z from 'zod'
 
 export async function GET(req: NextRequest, params: Promise<{ roomId: string }>) {
   const { roomId } = await params
@@ -24,10 +24,6 @@ export async function GET(req: NextRequest, params: Promise<{ roomId: string }>)
 
   return successPaginated(result.rows, toPaginationMeta(page, limit, result.total))
 }
-
-const createMessageSchema = z.object({
-  content: z.string().min(1).max(500),
-})
 
 export async function POST(req: NextRequest, params: Promise<{ roomId: string }>) {
   const { roomId } = await params

@@ -1,3 +1,4 @@
+import { patchProfileSchema } from '@/schemas/profile'
 import { profileSupabase } from '@/services/supabase/postgres/profile'
 import { AppErrorCode } from '@/types/app-error'
 import {
@@ -9,7 +10,6 @@ import {
   toPaginationMeta,
 } from '@/utils/api-helper'
 import { NextRequest } from 'next/server'
-import z from 'zod'
 
 export async function GET(req: NextRequest) {
   const page = Math.max(1, Number(req.nextUrl.searchParams.get('page') ?? 1))
@@ -22,11 +22,6 @@ export async function GET(req: NextRequest) {
 
   return successPaginated(result.rows, toPaginationMeta(page, limit, result.total))
 }
-
-const patchProfileSchema = z.object({
-  avatar_url: z.url().optional(),
-  username: z.string().min(1).max(20).optional(),
-})
 
 export async function PATCH(req: NextRequest) {
   const [user, authError] = await protect()
