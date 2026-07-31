@@ -1,3 +1,4 @@
+import { ApiFailure } from '@/types/api-response'
 import { env } from './env'
 
 type RequestOptions = {
@@ -75,16 +76,7 @@ async function fetchApi<T>(url: string, options: RequestOptions = {}): Promise<T
 
   if (!response.ok) {
     const body = await response.json()
-    const message = body.message || response.statusText
-    // if (typeof window !== 'undefined') {
-    //   if (response.status !== 401) {
-    //     useNotificationStore.getState().notify({
-    //       type: 'error',
-    //       message,
-    //     })
-    //   }
-    // }
-    throw new Error(message)
+    throw body as ApiFailure
   }
 
   return response.json()
