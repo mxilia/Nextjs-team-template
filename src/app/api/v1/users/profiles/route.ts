@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 }
 
 const patchProfileSchema = z.object({
-  avatarUrl: z.url().optional(),
+  avatar_url: z.url().optional(),
   username: z.string().min(1).max(20).optional(),
 })
 
@@ -37,10 +37,7 @@ export async function PATCH(req: NextRequest) {
     return parseError
   }
 
-  const [profile, error] = await profileSupabase.update(user.id, {
-    avatar_url: body.avatarUrl,
-    username: body.username,
-  })
+  const [profile, error] = await profileSupabase.update(user.id, body)
   if (error) {
     if (error.code === 'PGRST116') {
       return failure(404, AppErrorCode.NOT_FOUND, 'user not found')
