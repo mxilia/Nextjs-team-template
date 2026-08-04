@@ -217,7 +217,44 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_invite_code: {
+        Args: { p_code_hash: string }
+        Returns: {
+          code_hash: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          id: string
+          used_at: string | null
+          used_by: string | null
+        }
+        SetofOptions: {
+          from: '*'
+          to: 'invite_codes'
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      complete_signup: {
+        Args: {
+          p_avatar_url: string
+          p_invite_code: string
+          p_username: string
+        }
+        Returns: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          updated_at: string
+          username: string
+        }
+        SetofOptions: {
+          from: '*'
+          to: 'profiles'
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       [_ in never]: never
