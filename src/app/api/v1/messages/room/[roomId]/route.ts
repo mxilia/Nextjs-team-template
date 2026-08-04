@@ -1,4 +1,4 @@
-import { createMessageSchema } from '@/schemas/message'
+import { createMessageSchema } from '@/features/chat/schema'
 import { messageSupabase } from '@/services/supabase/postgres/message'
 import { roomSupabase } from '@/services/supabase/postgres/room'
 import { messageRealtime } from '@/services/supabase/realtime/message'

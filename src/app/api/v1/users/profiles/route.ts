@@ -1,4 +1,4 @@
-import { patchProfileSchema } from '@/schemas/profile'
+import { patchProfileSchema } from '@/features/user/schema'
 import { profileSupabase } from '@/services/supabase/postgres/profile'
 import { AppErrorCode } from '@/types/app-error'
 import {
