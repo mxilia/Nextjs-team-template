@@ -27,7 +27,7 @@ export function AuthProvider({
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase])
+  }, [])
 
   const value = useMemo(
     () => ({
