@@ -1,4 +1,4 @@
-import { getAuthenticatedProfile } from '@/lib/auth/server'
+import { getAuthenticatedProfile } from '@/lib/auth'
 import { failure, success } from '@/utils/api-helper'
 import { AppErrorCode } from '@/types/app-error'
 
