@@ -4,7 +4,14 @@ import { roomSupabase } from '@/services/supabase/postgres/room'
 import { messageRealtime } from '@/services/supabase/realtime/message'
 import { AppErrorCode } from '@/types/app-error'
 import { Message } from '@/types/db'
-import { failure, parseBody, success, successPaginated, toPaginationMeta } from '@/utils/api-helper'
+import {
+  failure,
+  parseBody,
+  protect,
+  success,
+  successPaginated,
+  toPaginationMeta,
+} from '@/utils/api-helper'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest, params: Promise<{ roomId: string }>) {
@@ -26,6 +33,11 @@ export async function GET(req: NextRequest, params: Promise<{ roomId: string }>)
 }
 
 export async function POST(req: NextRequest, params: Promise<{ roomId: string }>) {
+  const [user, authError] = await protect()
+  if (authError) {
+    return authError
+  }
+
   const { roomId } = await params
 
   const [body, parseError] = await parseBody(req, createMessageSchema)
@@ -41,6 +53,7 @@ export async function POST(req: NextRequest, params: Promise<{ roomId: string }>
   const [message, error] = await messageSupabase.create({
     room_id: roomId,
     content: body.content,
+    sender_id: user.id,
   } as Message)
   if (error) {
     return failure(500, AppErrorCode.INTERNAL_ERROR, 'cannot create new message')

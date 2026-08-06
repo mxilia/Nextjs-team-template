@@ -5,6 +5,17 @@ import { Result } from '@/types/supabase-response'
 const table = 'messages' as const
 
 export const messageSupabase = {
+  getById: async (id: string): Promise<Result<Message>> => {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.from(table).select('*').eq('id', id).single()
+    if (error) {
+      return [null, error]
+    }
+
+    return [data, null]
+  },
+
   getByRoomId: async (
     roomId: string,
     page: number,
