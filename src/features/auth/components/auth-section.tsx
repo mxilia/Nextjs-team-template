@@ -5,11 +5,11 @@ import { LoginButton } from './login-button'
 import { SignupButton } from './signup-button'
 
 export const AuthSection = () => {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   return (
     <div>
       {user ? (
-        <div>{user.email}</div>
+        <div>{profile ? profile.username : 'no profile'}</div>
       ) : (
         <>
           <LoginButton />

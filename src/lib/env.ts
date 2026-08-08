@@ -2,8 +2,8 @@ import * as z from 'zod'
 
 const createEnv = () => {
   const EnvSchema = z.object({
-    NEXT_PUBLIC_API_URL: z.url(),
-    NEXT_PUBLIC_APP_URL: z.url(),
+    NEXT_PUBLIC_API_URL: z.string(),
+    NEXT_PUBLIC_APP_URL: z.string(),
   })
 
   const envVars = {

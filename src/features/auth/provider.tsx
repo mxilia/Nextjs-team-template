@@ -1,11 +1,14 @@
 'use client'
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase/client'
+import { Profile } from '@/types/db'
+import { useProfileMe } from '@/services/hooks/profile'
 
 type AuthContextType = {
   user: User | null
+  profile?: Profile | null
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -18,25 +21,22 @@ export function AuthProvider({
   children: React.ReactNode
 }) {
   const [user, setUser] = useState<User | null>(initialUser)
+  const { data: profile } = useProfileMe()
 
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+      const nextUser = session?.user ?? null
+      setUser(nextUser)
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
-  const value = useMemo(
-    () => ({
-      user,
-    }),
-    [user],
+  return (
+    <AuthContext.Provider value={{ user, profile: profile?.data }}>{children}</AuthContext.Provider>
   )
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

@@ -51,7 +51,7 @@ export async function parseBody<T>(
   schema: z.ZodType<T>,
 ): Promise<ParseResult<T>> {
   const json = await req.json()
-  const result = schema.safeParse(json)
+  const result = schema.safeParse(json.body)
 
   if (!result.success) {
     return [

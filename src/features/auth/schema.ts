@@ -14,3 +14,10 @@ export const signupSchema = z.object({
 })
 
 export type SignupInput = z.infer<typeof signupSchema>
+
+export const profileSchema = z.object({
+  username: z.string().min(3, 'username must be at least 3 characters long'),
+  avatar_url: z.string().optional(),
+})
+
+export type ProfileInput = z.infer<typeof profileSchema>

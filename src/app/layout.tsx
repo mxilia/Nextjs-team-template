@@ -6,6 +6,7 @@ import { Toaster } from 'sonner'
 import { AppProvider } from './provider'
 import { Overlay } from '@/components/overlay/overlay'
 import { getAuthenticatedUser } from '@/lib/auth'
+import { ProfileFormModal } from '@/features/auth/components/profile-form-modal'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <AppProvider initialUser={user}>
+          <ProfileFormModal />
           <Navbar />
           <Toaster />
           <Overlay />
