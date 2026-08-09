@@ -7,6 +7,8 @@ import { AppProvider } from './provider'
 import { Overlay } from '@/components/overlay/overlay'
 import { getAuthenticatedUser } from '@/lib/auth'
 import { ProfileFormModal } from '@/features/auth/components/profile-form-modal'
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
+import { getProfileMeOptions } from '@/services/hooks/profile'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,16 +30,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const queryClient = new QueryClient()
+
   const user = await getAuthenticatedUser()
+
+  await queryClient.fetchQuery(getProfileMeOptions())
+  const dehydratedState = dehydrate(queryClient)
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <AppProvider initialUser={user}>
-          <ProfileFormModal />
-          <Navbar />
-          <Toaster />
-          <Overlay />
-          {children}
+          <HydrationBoundary state={dehydratedState}>
+            <ProfileFormModal />
+            <Navbar />
+            <Toaster />
+            <Overlay />
+            {children}
+          </HydrationBoundary>
         </AppProvider>
       </body>
     </html>

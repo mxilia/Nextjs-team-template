@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '../provider'
 import { useForm } from 'react-hook-form'
 import { ProfileInput, profileSchema } from '../schema'
-import { useCreateProfileMe } from '@/services/hooks/profile'
+import { useCreateProfileMe, useProfileMe } from '@/services/hooks/profile'
 import { toast } from 'sonner'
 
 export const ProfileFormModal = () => {
@@ -15,7 +15,8 @@ export const ProfileFormModal = () => {
       avatar_url: '',
     },
   })
-  const { user, profile } = useAuth()
+  const { user } = useAuth()
+  const { data: profileMeData, isLoading } = useProfileMe()
   const { mutate, isPending } = useCreateProfileMe({
     config: {
       onSuccess: () => {
@@ -31,7 +32,7 @@ export const ProfileFormModal = () => {
     mutate(data)
   }
 
-  if (!(user && !profile)) return null
+  if (!(user && !profileMeData?.data) || isLoading) return null
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">

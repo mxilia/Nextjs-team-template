@@ -1,15 +1,17 @@
 'use client'
 
+import { useProfileMe } from '@/services/hooks/profile'
 import { useAuth } from '../provider'
 import { LoginButton } from './login-button'
 import { SignupButton } from './signup-button'
 
 export const AuthSection = () => {
-  const { user, profile } = useAuth()
+  const { user } = useAuth()
+  const { data: profileMeData } = useProfileMe()
   return (
     <div>
       {user ? (
-        <div>{profile ? profile.username : 'no profile'}</div>
+        <div>{profileMeData?.data ? profileMeData?.data.username : 'annonymous'}</div>
       ) : (
         <>
           <LoginButton />

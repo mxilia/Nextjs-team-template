@@ -3,12 +3,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase/client'
-import { Profile } from '@/types/db'
-import { useProfileMe } from '@/services/hooks/profile'
 
 type AuthContextType = {
   user: User | null
-  profile?: Profile | null
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -21,7 +18,6 @@ export function AuthProvider({
   children: React.ReactNode
 }) {
   const [user, setUser] = useState<User | null>(initialUser)
-  const { data: profile } = useProfileMe()
 
   useEffect(() => {
     const {
@@ -34,9 +30,7 @@ export function AuthProvider({
     return () => subscription.unsubscribe()
   }, [])
 
-  return (
-    <AuthContext.Provider value={{ user, profile: profile?.data }}>{children}</AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {
