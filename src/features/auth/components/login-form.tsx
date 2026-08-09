@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { LoginInput, loginSchema } from '../schema'
 import { toast } from 'sonner'
-import { login } from '../actions'
+import { login } from '../action'
 import { overlayStore } from '@/components/overlay/overlay.store'
 
 interface LoginFormProps {

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { SignupInput, signupSchema } from '../schema'
 import { toast } from 'sonner'
-import { signup } from '../actions'
+import { signup } from '../action'
 import { overlayStore } from '@/components/overlay/overlay.store'
 
 interface SignupFormProps {
