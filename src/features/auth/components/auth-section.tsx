@@ -1,17 +1,20 @@
 'use client'
 
-import { useProfileMe } from '@/services/hooks/profile'
 import { useAuth } from '../provider'
 import { LoginButton } from './login-button'
 import { SignupButton } from './signup-button'
+import { ProfileMe } from './profile-me'
+import { LogoutButton } from './logout-button'
 
 export const AuthSection = () => {
   const { user } = useAuth()
-  const { data: profileMeData } = useProfileMe()
   return (
-    <div>
+    <div className="flex gap-2">
       {user ? (
-        <div>{profileMeData?.data ? profileMeData?.data.username : 'annonymous'}</div>
+        <>
+          <ProfileMe />
+          <LogoutButton />
+        </>
       ) : (
         <>
           <LoginButton />

@@ -1,11 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAuth } from '../provider'
 import { useForm } from 'react-hook-form'
 import { ProfileInput, profileSchema } from '../schema'
 import { useCreateProfileMe, useProfileMe } from '@/services/hooks/profile'
 import { toast } from 'sonner'
+import { useAuth } from '../provider'
 
 export const ProfileFormModal = () => {
   const { register, handleSubmit, formState } = useForm<ProfileInput>({
@@ -20,10 +20,10 @@ export const ProfileFormModal = () => {
   const { mutate, isPending } = useCreateProfileMe({
     config: {
       onSuccess: () => {
-        toast.success('Registerd profile successfully.')
+        toast.success('Registerd profile successfully')
       },
       onError: () => {
-        toast.error('Failed to register profile. Please try again.')
+        toast.error('Failed to register profile. Please try again')
       },
     },
   })

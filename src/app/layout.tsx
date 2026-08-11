@@ -34,7 +34,9 @@ export default async function RootLayout({
 
   const user = await getAuthenticatedUser()
 
-  await queryClient.fetchQuery(getProfileMeOptions())
+  if (user) {
+    await queryClient.fetchQuery(getProfileMeOptions())
+  }
   const dehydratedState = dehydrate(queryClient)
 
   return (
