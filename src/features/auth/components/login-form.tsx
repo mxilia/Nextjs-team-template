@@ -30,6 +30,7 @@ export const LoginForm = ({ callbackUrl = '/' }: LoginFormProps) => {
       toast.success('Login successfully')
       overlayStore.close()
       router.push(callbackUrl)
+      window.location.reload()
     }
   }
   return (

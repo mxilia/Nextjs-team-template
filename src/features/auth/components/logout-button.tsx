@@ -13,6 +13,7 @@ export const LogoutButton = () => {
     } else {
       toast.success('Logout successfully')
       router.push('/')
+      window.location.reload()
     }
   }
   return (
