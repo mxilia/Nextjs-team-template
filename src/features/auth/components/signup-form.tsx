@@ -31,7 +31,9 @@ export const SignupForm = ({ callbackUrl = '/' }: SignupFormProps) => {
       toast.success('Signup successfully')
       overlayStore.close()
       router.push(callbackUrl)
-      window.location.reload()
+      setTimeout(() => {
+        window.location.reload()
+      }, 600)
     }
   }
   return (

@@ -3,18 +3,34 @@
 import { toast } from 'sonner'
 import { logout } from '../action'
 import { useRouter } from 'next/navigation'
+import { overlayStore } from '@/components/overlay/overlay.store'
+import { ConfirmationModal } from '@/components/modal/confirmation-modal'
 
 export const LogoutButton = () => {
   const router = useRouter()
   const onClick = async () => {
-    const { success } = await logout()
-    if (!success) {
-      toast.error(`Failed to login, please try again`)
-    } else {
-      toast.success('Logout successfully')
-      router.push('/')
-      window.location.reload()
-    }
+    overlayStore.open(
+      <ConfirmationModal
+        title="Logout"
+        description="You will be signed off and will have to login again later."
+        onCancel={() => {
+          overlayStore.close()
+        }}
+        onConfirm={async () => {
+          const { success } = await logout()
+          if (!success) {
+            toast.error(`Failed to login, please try again`)
+          } else {
+            toast.success('Logout successfully')
+            router.push('/')
+            overlayStore.close()
+            setTimeout(() => {
+              window.location.reload()
+            }, 600)
+          }
+        }}
+      />,
+    )
   }
   return (
     <button
