@@ -15,4 +15,15 @@ export const roomSupabase = {
 
     return [data, null]
   },
+
+  getByName: async (name: string): Promise<Result<Room>> => {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.from(table).select('*').eq('name', name).single()
+    if (error) {
+      return [null, error]
+    }
+
+    return [data, null]
+  },
 }

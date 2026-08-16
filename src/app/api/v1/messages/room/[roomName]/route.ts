@@ -14,17 +14,20 @@ import {
 } from '@/utils/api-helper'
 import { NextRequest } from 'next/server'
 
-export async function GET(req: NextRequest, params: Promise<{ roomId: string }>) {
-  const { roomId } = await params
+export async function GET(req: NextRequest, { params }: { params: Promise<{ roomName: string }> }) {
+  const { roomName } = await params
   const page = Math.max(1, Number(req.nextUrl.searchParams.get('page') ?? 1))
   const limit = Math.max(1, Number(req.nextUrl.searchParams.get('limit') ?? 5))
 
-  const room = await roomSupabase.getById(roomId)
-  if (room === null) {
-    return failure(404, AppErrorCode.NOT_FOUND, 'room not found')
+  const [room, roomError] = await roomSupabase.getByName(roomName)
+  if (roomError) {
+    if (roomError.code === 'PGRST116') {
+      return failure(404, AppErrorCode.NOT_FOUND, 'room not found')
+    }
+    return failure(500, AppErrorCode.INTERNAL_ERROR, 'cannot validate room')
   }
 
-  const [result, error] = await messageSupabase.getByRoomId(roomId, page, limit)
+  const [result, error] = await messageSupabase.getByRoomId(room.id, page, limit)
   if (error) {
     return failure(500, AppErrorCode.INTERNAL_ERROR, 'cannot fetch messages')
   }
@@ -32,7 +35,7 @@ export async function GET(req: NextRequest, params: Promise<{ roomId: string }>)
   return successPaginated(result.rows, toPaginationMeta(page, limit, result.total))
 }
 
-export async function POST(req: NextRequest, params: Promise<{ roomId: string }>) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ roomId: string }> }) {
   const [user, authError] = await protect()
   if (authError) {
     return authError

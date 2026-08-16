@@ -2,7 +2,7 @@ import { messageSupabase } from '@/services/supabase/postgres/message'
 import { AppErrorCode } from '@/types/app-error'
 import { failure, protect, success } from '@/utils/api-helper'
 
-export async function DELETE(params: Promise<{ id: string }>) {
+export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
 
   const [user, authError] = await protect()

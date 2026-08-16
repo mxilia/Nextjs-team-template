@@ -2,7 +2,7 @@ import { profileSupabase } from '@/services/supabase/postgres/profile'
 import { AppErrorCode } from '@/types/app-error'
 import { failure, success } from '@/utils/api-helper'
 
-export async function GET(params: Promise<{ username: string }>) {
+export async function GET({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params
   const [user, error] = await profileSupabase.getByUsername(username)
   if (error) {
