@@ -461,4 +461,6 @@ Examples include:
 
 If a utility is specific to a feature, prefer keeping it inside that feature.
 
----
+## License
+
+This project is licensed under the **MIT License**.
