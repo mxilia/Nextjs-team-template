@@ -344,13 +344,13 @@ src/features/auth/
 
 A feature may contain:
 
-- Components
-- Server actions
-- Schemas
-- Constants
-- Providers
-- Feature-specific utilities
-- Feature-specific types
+- components
+- server actions
+- schemas
+- constants
+- providers
+- feature-specific utilities
+- feature-specific types
 
 If the code only makes sense within one feature, keep it inside that feature.
 This keeps feature boundaries clear and makes parallel development easier.
@@ -374,10 +374,10 @@ src/lib/
 Typical responsibilities include:
 
 - API client configuration
-- Supabase client initialization
-- Shared infrastructure
-- Library configuration
-- Framework-level helpers
+- supabase client initialization
+- shared infrastructure
+- library configuration
+- framework-level helpers
 
 ---
 
@@ -399,10 +399,10 @@ src/services/
 Typical responsibilities include:
 
 - API requests
-- External SDK integrations
-- Supabase operations
-- Data-fetching hooks
-- External service configuration
+- external SDK integrations
+- supabase operations
+- data-fetching hooks
+- external service configuration
 
 The goal is to prevent third-party implementation details from leaking throughout the feature layer.
 
@@ -453,11 +453,11 @@ Utilities should be independent of a particular feature or external service.
 
 Examples include:
 
-- String helpers
-- Date helpers
-- Formatting functions
-- Array/object helpers
-- Generic validation helpers
+- string helpers
+- date helpers
+- formatting functions
+- array/object helpers
+- generic validation helpers
 
 If a utility is specific to a feature, prefer keeping it inside that feature.
 
