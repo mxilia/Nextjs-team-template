@@ -23,12 +23,12 @@ The codebase follows a **feature-based structure**.
 
 Everything that belongs specifically to a feature—such as:
 
-- Components
-- Schemas
-- Constants
-- Actions
-- Feature-specific providers
-- Other feature-specific logic
+- components
+- schemas
+- constants
+- actions
+- feature-specific providers
+- other feature-specific logic
 
 should live inside that feature's directory.
 
