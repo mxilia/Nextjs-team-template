@@ -52,10 +52,10 @@ Third-party integrations and external connections are isolated from feature code
 Examples include:
 
 - REST APIs
-- Supabase
-- External SDKs
-- Data-fetching hooks
-- Other third-party integrations
+- supabase
+- external SDKs
+- data-fetching hooks
+- other third-party integrations
 
 This provides a **single source of truth** for external services, reducing duplicated connection logic and making integrations easier to maintain, test, and replace.
 
@@ -65,7 +65,7 @@ This provides a **single source of truth** for external services, reducing dupli
 
 Make sure you have the following installed:
 
-- Node.js
+- node.js
 - npm
 - git
 
@@ -280,11 +280,11 @@ Contains Next.js App Router routes and application-level files.
 
 Use this directory for:
 
-- Pages
-- Layouts
-- Route handlers
-- Loading and error states
-- Application-level providers
+- pages
+- layouts
+- route handlers
+- loading and error states
+- application-level providers
 - API routes
 
 Example:
